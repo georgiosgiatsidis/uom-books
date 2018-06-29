@@ -1,13 +1,28 @@
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
 body {
+  font-family: 'Indie Flower', cursive;
   color: #fff;
   background: #333;
 }
 
-@keyframes spinner {
-  to {transform: rotate(360deg);}
+h1 {
+  font-variant: small-caps;
+  font-weight: 900;
+  color: rgb(253, 39, 103);
+  border-bottom: 1px solid;
 }
- 
-/* Absolute Center Spinner */
+
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 16px;
+  max-height: calc(5 * 16px);
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
 .loading {
   position: fixed;
   z-index: 999;

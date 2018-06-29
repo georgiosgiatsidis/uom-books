@@ -13,26 +13,54 @@ class App extends Component {
   }
 
   render() {
-    const { loading } = this.state;
+    const { loading, books } = this.state;
     return `
-      ${Header()}
-        <div class="books">
-          ${loading
-          ? '<div class="loading"></div>'
-          : `<h1>${this.state.title}</h1><h3>By ${this.state.author}</h3>`}
-        </div>
-      ${Footer()}  
+      <div class="container">
+        ${Header()}
+          <div class="row">
+            ${loading ? '<div class="loading"></div>' : `${books.map(book => `
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col">
+                  <a href="${book.previewLink}" target="_blank">
+                    <img src="${book.thumbnail}" />
+                  </a>
+                </div>
+                <div class="col">
+                  <h2>${book.title}</h2>
+                </div>
+              </div>
+              <p>By ${book.description}</p>
+            </div>`).join('\n')}
+            <button onclick="document.componentRegistry[${this._id}].changePage('javascript, 2')">change page</button>
+            `}
+          </div>
+        ${Footer()}
+      </div>
       `;
   }
 
-  fetchBooks() {
-    fetch("https://www.booknomads.com/api/v0/isbn/9789029538237")
+  changePage(q, startIndex) {
+    this.state.loading = true;
+    update();
+    this.fetchBooks(q, startIndex);
+  }
+
+  fetchBooks(q, startIndex = 0) {
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&startIndex=${startIndex}`)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        console.log(JSON.stringify(res, null, 2));
         this.state.loading = false;
-        this.state.title = res.Title;
-        this.state.author = res.Authors[0].Name;
+        this.state.books = res.items.map(item => {
+          const book = {
+            title: item.volumeInfo.title,
+            thumbnail: item.volumeInfo.imageLinks.thumbnail,
+            description: item.volumeInfo.description,
+            previewLink: item.volumeInfo.previewLink,
+          };
+          return book;
+        });
         setTimeout(update, 500);
       })
   }
@@ -40,7 +68,7 @@ class App extends Component {
 }
 
 const app = new App();
-app.fetchBooks();
+app.fetchBooks('javascript');
 document.getElementById('app').innerHTML = app.render();
 
 function update() {
