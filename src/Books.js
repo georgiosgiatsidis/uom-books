@@ -1,26 +1,33 @@
 import Component from './Component';
+import Fetch from './Fetch';
 
 export default class Books extends Component {
   constructor(props) {
     super();
     this.state = {
-      author: props.author,
-      title: props.title,
-      body: props.body,
+      loading: true,
+    //   author: props.author,
+    //   title: props.title,
+    //   body: props.body,
     }
   }
 
-  setBody() {
-    console.log('hi');
+  fetchBooks() {
+    const fetch = new Fetch();
+    return fetch.get();
   }
 
   render() {
-    document.componentRegistry[this._id].setBody();
-
-    return `<div class="post">
-              <h1>${this.state.title}</h1>
-              <h3>By ${this.state.author}</h3>
-              <p>${this.state.body}</p>
-            </div>`;
+    // document.componentRegistry[this._id].setBody();
+    const { loading } = this.state;
+    return loading
+      ? 'loading...'
+      : `books loaded...`;
   }
 }
+
+/*
+          <textarea onchange="document.componentRegistry[${this._id}].setBody(this.value)">
+            ${JSON.stringify(this.state)}
+          </textarea>
+*/

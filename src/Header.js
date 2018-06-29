@@ -1,9 +1,5 @@
-function Header() {
-  return `
-    <div>
-      The header
-    </div>
-  `;
-}
+const Header = () => (
+  `<div>The Header</div>`
+);
 
 export default Header;
