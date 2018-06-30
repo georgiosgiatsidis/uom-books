@@ -2,7 +2,7 @@ import Component from './Component';
 import Header from './Header';
 import Book from './Book';
 import Footer from './Footer';
-import pagination from './Pagination';
+import Pagination from './Pagination';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,7 +16,13 @@ export default class App extends Component {
   }
 
   render() {
-    const { loading, books } = this.state;
+    const {
+      loading,
+      books,
+      startIndex,
+      totalPages,
+    } = this.state;
+    const pagination = new Pagination({ startIndex, totalPages, that: this._id });
     return `
       <div class="container">
         ${Header()}
@@ -24,18 +30,17 @@ export default class App extends Component {
         <span>*type a keyword and press enter</span>
         <div class="row row-eq-height">
           ${loading ? '<div class="loading"></div>' : `${books.map(book => `${Book({ book })}`).join('\n')}`}
-          ${pagination(this.state.startIndex, this.state.totalPages).map(page => `
-            <span class="page" ${page !== '...' && `onclick="document.componentRegistry[${this._id}].handleChange('${this.state.query}', ${page - 1})"`}>
-              ${page}
-            </span>`).join('\n')}
         </div>
+        ${pagination.render()}
         ${Footer()}
       </div>
       `;
   }
 
   handleChange(query, startIndex) {
-    this.state.query = query;
+    if (typeof query !== 'undefined') {
+      this.state.query = query;
+    }
     this.state.startIndex = startIndex;
     this.fetchBooks();
   }
