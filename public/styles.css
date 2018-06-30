@@ -9,16 +9,34 @@ body {
 h1 {
   font-variant: small-caps;
   font-weight: 900;
-  color: rgb(253, 39, 103);
+  color: #C74D4D;
   border-bottom: 1px solid;
 }
 
-p {
+h2 {
+  color: #C74D4D;
+}
+
+input {
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  outline: 0;
+  background: transparent;
+  margin: 1rem 0;
+  border-bottom: 1px solid;
+}
+
+input:focus {
+  color: #C74D4D;
+}
+
+p.ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  line-height: 16px;
-  max-height: calc(5 * 16px);
+  line-height: 1rem;
+  max-height: calc(5 * 1rem);
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
@@ -52,10 +70,16 @@ p {
   display: block;
   width: 50px;
   height: 50px;
-  border: 1px solid rgb(253, 39, 103);
+  border: 1px solid #C74D4D;
   border-top-color: #fff;
   animation: spinner .6s linear infinite;
   border-radius: 50%;
+}
+
+.page {
+  cursor: pointer;
+  font-weight: 900;
+  margin: 0 0.5rem;
 }
 
 @keyframes spinner {

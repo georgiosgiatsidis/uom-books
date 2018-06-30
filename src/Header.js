@@ -1,7 +1,7 @@
 const Header = () => (
   `<div>
-    <h1>UoM Books</h1>
-    <h3>Search for your favorites books</h3>
+    <h1>UoM Books!</h1>
+    <p>Search for your favorites books</p>
   </div>`
 );
 
