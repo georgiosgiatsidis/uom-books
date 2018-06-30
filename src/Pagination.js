@@ -8,13 +8,15 @@ export default function pagination(c, m) {
   const rangeWithDots = [];
   let l;
 
-  for (let i = 1; i <= last; i++) {
-    if (i == 1 || i == last || i >= left && i < right) {
+  for (let i = 1; i <= last; i += 1) {
+    const a = i === 1 || i === last;
+    const b = i >= left && i < right;
+    if (a || b) {
       range.push(i);
     }
   }
 
-  for (let i of range) {
+  range.forEach((i) => {
     if (l) {
       if (i - l === 2) {
         rangeWithDots.push(l + 1);
@@ -24,7 +26,7 @@ export default function pagination(c, m) {
     }
     rangeWithDots.push(i);
     l = i;
-  }
+  });
 
   return rangeWithDots;
 }

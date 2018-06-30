@@ -6,6 +6,11 @@ body {
   background: #333;
 }
 
+a:hover {
+  text-decoration: none;
+  color: #f15c5c;
+}
+
 h1 {
   font-variant: small-caps;
   font-weight: 900;

@@ -1,5 +1,10 @@
 {
+  "extends": "airbnb-base",
   "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+  },
   "rules": {
     "indent": [
       2,
@@ -7,6 +12,7 @@
       {
         "SwitchCase": 1
       }
-    ]
-  }
+    ],
+    "no-underscore-dangle": [2, { "allow": ["_id"] }]
+  },
 }

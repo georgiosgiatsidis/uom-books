@@ -3,7 +3,8 @@ document.nextId = 0;
 
 export default class Component {
   constructor() {
-    this._id = document.nextId += 1;
+    document.nextId += 1;
+    this._id = document.nextId;
     document.componentRegistry[this._id] = this;
   }
 }
